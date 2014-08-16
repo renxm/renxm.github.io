@@ -1,13 +1,19 @@
-##Kunka
+##休明的博客
 
-> 这只是另外一个 Jekyll 主题文件。
+> 我是「任休明」，这是我的网络ID，此处是这个虚拟人格的归宿。
 
-![kunka blog theme](images/blog.jpg)
 
-###使用方法
+###人生无常，众生皆苦。
 
-* 把主题文件 clone 到你本地服务器，添加文章到 ```_posts``` 文件夹。
-* 修改 ```_config.yml```，里面有很多可以配置的选项。
-* 运行 ```jekyll server```，浏览器打开 http://localhost:4000 便可以看到新的主题。
+* 生
+* 老
+* 死
+* 愁
+* 悲
+* 苦
+* 憂
+* 惱
+* 怨憎會
+* 愛別離
+* 求不得
 
-更多的介绍，详见[Jekyll 博客主题 Kunka](http://www.zhanxin.info/jekyll/2013-08-11-jekyll-theme-kunka.html)。
