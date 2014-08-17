@@ -1,5 +1,5 @@
-markdown: redcarpet
-pygments: true
+markdown: rdiscount
+highlighter: pygments
 paginate: 8
 
 safe:  false
@@ -8,9 +8,9 @@ safe:  false
 title: 休明的个人网站
 description: 休明的个人网站
 keywords: 任 休明
-url: http://renxm.github.io
+url: http://renxm.com
 feed: /atom.xml
-favicon: http://jekyllrb.com/favicon.png
+favicon: /images/favicon.png
 
 #Nav config
 nav:
@@ -29,7 +29,7 @@ nav:
 author:
     name: 任休明
     email: iamrzh@hotmail.com
-    imageLink: http://tp3.sinaimg.cn/1769019670/180/5696387644/1
+    imageLink: http://tp3.sinaimg.cn/1769019670/180/40062948674/1
     simpleIntro: 我是「任休明」，这是我的网络ID，此处是这个虚拟人格的归宿。
     detailIntro:
       <p>此前的博客断断续续写了两三年，许久不更新后域名也过期了。</p>
@@ -53,13 +53,13 @@ follow:
 #Links
 customLinks:
   - item:
-    - text: 掌心
-      url: http://www.zhanxin.info
-    - text: Jekyll
-      url: http://jekyllrb.com
-    - text: Jekyll Theme
-      url: http://www.zhanxin.info/themes.html
-    message: Friends
+    - text: 酷壳
+      url: http://coolshell.cn/
+    - text: 老赵
+      url: http://blog.zhaojie.me/
+    - text: 魏武挥
+      url: http://weiwuhui.com/
+    message: 常看的博客
   - item:
     - text: Font Awesome
       url: http://fortawesome.github.io/Font-Awesome/
