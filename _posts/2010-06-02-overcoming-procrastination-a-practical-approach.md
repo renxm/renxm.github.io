@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:      克服拖延的实用方法
+category: life
 description: 事实上每个人都会拖延，只是程度不同罢了。偶然推迟一个任务没什么大碍。然而，对有些人来说拖延成了一种生活方式，这样一来问题就真的严重了。如果你自认为属于偶然拖延那一类的，那么你有必要扪心自问一下——真是如此吗？拖延症的前兆有时候比我们预期的更加微妙。
 keywords: Overcoming Procrastination A Practical Approach 
 ---
