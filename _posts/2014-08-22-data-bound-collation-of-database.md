@@ -5,7 +5,6 @@ category: database
 description: Collation，中文对应词为“定序”或“定序规则”，意指字符（串）比较和排序的一组规则。
 keywords: collation oracle database 
 ---
-##定义
 Collation，中文对应词为“定序”或“定序规则”，意指字符（串）比较和排序的一组规则。
 
 ##简介
@@ -18,9 +17,8 @@ Collation，中文对应词为“定序”或“定序规则”，意指字符�
 ##数据库相关
 传统的关系型数据库都有对定序规则的支持，以满足国际化的需求。大型数据库由于客户众多，对国际化的支持很完善，相对应地定序规则也很多。
 比如，Oracle 12c中的定序规则多达115种。在sqlPlus中可以使用如下语句查询全部的定序规则：
-<pre class="js" name="colorcode">
-SELECT VALUE FROM V$NLS_VALID_VALUES WHERE PARAMETER='SORT'
-</pre>
+
+    SELECT VALUE FROM V$NLS_VALID_VALUES WHERE PARAMETER='SORT'
 
 定序规则在数据库中具体实现时，通常会把一个字符串按照一定算法映射为一个唯一的数值，这个数值被称为定序键（Collation Key）。对于两个字符串，可以逐字节比较它们定序键的二进制值，结果就是定序键所对应的字符串在特定定序规则中的比较结果。
 
