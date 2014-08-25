@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      利用Java语言中的定序器对字符串排序
-category: java
+category: java 定序器 collator 国际化 GDK orai18n
 description: 如上一篇文章[数据库中的字符串定序规则](http://renxm.com/database/2014/08/22/data-bound-collation-of-database.html)所提到的，定序规则是应用程序对不同语言的语义习惯定制的字符串比较或者排序规则。 Java作为应用最广泛的开发语言之一，也有对定序规则的实现类。
 keywords: collator java sort
 ---
@@ -83,3 +83,40 @@ RuleBasedCollator是Collator的子类，支持以字符串的形式传入自定�
 当字符串的比较次数较多时，直接使用Collator效率比较低。提高效率的方法之一就是使用CollationKey类，这比直接使用Collator.compare()要快上不少。
 
 需要调用Collator.getCollationKey()来获取字符冲对应的CollationKey，而且做比较的CollationKey只能是同一个Collator生成的，否则没有意义。
+
+##GDK
+通过上面的程序输出可以看出，Collator对于大小写敏感的排序是非常之奇葩的。本来按照字符集编码顺序和人类习惯，小写字母都应该排在大写字母后面，可是Collator偏偏于此相反。
+
+不过好在大型的开发框架或系统都会提供和国际化相关的支持，比如Oracle的国际化开发工具包（Globalization Development Kit）。这个工具包现在貌似在公网上只能找到10.1版本（[下载地址](http://www.oracle.com/technetwork/topics/gdk-098904.html)），核心是名为orai18n.jar的jar包。
+
+注意，如果在Oracle JDBC Driver页面下载orai18n.jar，得到的是一个不完整的GDK。
+
+GDK使用名为OraCollator的类代替java.text.Collator，其中实现的所有定序规则都是和Oracle数据库一一对应的。它的使用方法和Collator非常类似，可以用一个String类型的参数定序规则名。
+
+下面是一段示例代码：
+
+    import java.text.Collator;
+    import oracle.i18n.text.*;
+    import java.util.*;
+
+    public class test
+    {
+      public static void main(String[] args) throws Exception
+      {
+          Collator javaCollator = Collator.getInstance(Locale.FRENCH);
+          javaCollator.setStrength(Collator.TERTIARY);
+          if( javaCollator.compare("abc", "ABC") < 0 )
+              System.out.println("Using java collator, abc is less than ABC");
+          
+          OraCollator gdkCollator = OraCollator.getInstance("FRENCH");
+          gdkCollator.setStrength(OraCollator.TERTIARY);;
+          if( gdkCollator.compare("abc", "ABC") > 0 )
+              System.out.println("Using GDK Collator, abc is greater than to ABC");
+      }
+    }
+
+程序输出：
+
+    Using java collator, abc is less than ABC
+    Using GDK Collator, abc is greater than to ABC
+
