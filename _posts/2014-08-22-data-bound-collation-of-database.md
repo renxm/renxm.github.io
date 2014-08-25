@@ -3,7 +3,7 @@ layout:     post
 title:      数据库中的字符串定序规则
 category: database
 description: Collation，中文对应词为“定序”或“定序规则”，意指字符（串）比较和排序的一组规则。
-keywords: collation oracle database 
+keywords: 定序 定序规则 collation oracle database 
 ---
 Collation，中文对应词为“定序”或“定序规则”，意指字符（串）比较和排序的一组规则。
 
@@ -27,4 +27,41 @@ Collation，中文对应词为“定序”或“定序规则”，意指字符�
 一般主流关系型数据库都支持新建DB时、新建表时、执行SQL语句时指定定序规则，比如SQLServer, MySQL。
 
 唯独Oracle并不支持在新建表示指定特定列的定序规则，截止最新的12c版本都是如此。 预计在12c的下一个子版本，有望支持这个功能。
+
+##Oracle
+Oracle数据库目前在SQL语句中对定序的支持主要基于一个函数————NLSSORT。
+
+NLSSORT接受两个参数，一个是想要转化的字符变量（char），另一个是代表定序规则的字符串（nlsparam）。这两个参数可以是Oracle字符类型（CHAR/VARCHAR2/NCHAR/NVARCHAR2）中的任意一个。它的返回值是RAW类型，代表第一个参数的定序键。
+代表定序规则的参数有如下格式要求，其中COLLATION是某个特定语言定序规则的名字，如ENGLISH。BINARY是字符编码定序规则的名字。如果省略第二个参数，NLSSORT函数就会使用当前SESSION默认的定序规则，对应的SESSION参数是NLS_SORT。
+
+    'NLS_SORT = collation'
+
+在指定定序规则名字时，可以附加两个后缀：“_ai”代表对口音不敏感；“_ci”代表对大小写不敏感。但是，在ORDER BY语句中使用NLSSORT函数时，不建议使用这两个后缀，因为它们会使排序结果不确定。
+
+下面是一个简单的例子，对比了在查询中使用和不使用NLSSORT函数带来的差别：
+
+    CREATE TABLE test (name VARCHAR2(15));
+    INSERT INTO test VALUES ('Gaardiner');
+    INSERT INTO test VALUES ('Gaberd');
+    INSERT INTO test VALUES ('Gaasten');
+
+    SELECT *
+      FROM test
+      ORDER BY name;
+
+    NAME
+    ---------------
+    Gaardiner
+    Gaasten
+    Gaberd
+
+    SELECT *
+      FROM test
+      ORDER BY NLSSORT(name, 'NLS_SORT = XDanish');
+
+    NAME
+    ---------------
+    Gaberd
+    Gaardiner
+    Gaasten
 
