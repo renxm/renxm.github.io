@@ -1,9 +1,9 @@
 ---
 layout:     post
 title:      利用Java语言中的定序器对字符串排序
-category: java 定序器 collator 国际化 GDK orai18n
+category: java
 description: 如上一篇文章[数据库中的字符串定序规则](http://renxm.com/database/2014/08/22/data-bound-collation-of-database.html)所提到的，定序规则是应用程序对不同语言的语义习惯定制的字符串比较或者排序规则。 Java作为应用最广泛的开发语言之一，也有对定序规则的实现类。
-keywords: collator java sort
+keywords:  java 定序器 collator 国际化 GDK orai18n sort
 ---
 如上一篇文章[数据库中的字符串定序规则](http://renxm.com/database/2014/08/22/data-bound-collation-of-database.html)所提到的，定序规则是应用程序对不同语言的语义习惯定制的字符串比较或者排序规则。
 
