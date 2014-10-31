@@ -1,4 +1,12 @@
-markdown: rdiscount
+#markdown: rdiscount
+markdown: redcarpet
+redcarpet:
+  extensions:
+    - fenced_code_blocks
+    - no_intra_emphasis
+    - strikethrough
+    - autolink
+    - tables
 highlighter: pygments
 paginate: 8
 
@@ -9,6 +17,7 @@ title: 休明的个人网站
 description: 休明的个人网站
 keywords: 任 休明
 url: http://renxm.com
+#url: http://localhost:4000
 feed: /atom.xml
 favicon: /images/favicon.png
 

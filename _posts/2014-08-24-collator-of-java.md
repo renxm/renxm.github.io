@@ -23,34 +23,36 @@ Collator是一个抽象类，要获取它的对象实例需要调用Collator.get
 
 下面是一段使用Collator的代码示例：
 
-    import java.text.Collator;
-    import java.util.*;
+```java
+  import java.text.Collator;
+  import java.util.*;
 
-    public class test
+  public class test
+  {
+    public static void main(String[] args) throws Exception
     {
-      public static void main(String[] args) throws Exception
-      {
-          String[] strs4Test = {
-                  "ZOO", "alarm", "zoo", "Alarm"
-          };
-          TreeSet<String> seqBinary = null;
-          TreeSet<String> seqEnglish = null;
-          seqBinary = new TreeSet<String>();
-          Collator enCollator =Collator.getInstance(Locale.ENGLISH);
-          enCollator.setStrength(Collator.IDENTICAL);
-          seqEnglish = new TreeSet<String>(enCollator);
-          for (String str:strs4Test) {
-              seqBinary.add(str);
-              seqEnglish.add(str);
-          }
-          System.out.println("Binary sequence:");
-          for(String s:seqBinary)
-              System.out.println(s);
-          System.out.println("English sequence:");
-          for(String s:seqEnglish)
-              System.out.println(s);
-      }
+        String[] strs4Test = {
+                "ZOO", "alarm", "zoo", "Alarm"
+        };
+        TreeSet<String> seqBinary = null;
+        TreeSet<String> seqEnglish = null;
+        seqBinary = new TreeSet<String>();
+        Collator enCollator =Collator.getInstance(Locale.ENGLISH);
+        enCollator.setStrength(Collator.IDENTICAL);
+        seqEnglish = new TreeSet<String>(enCollator);
+        for (String str:strs4Test) {
+            seqBinary.add(str);
+            seqEnglish.add(str);
+        }
+        System.out.println("Binary sequence:");
+        for(String s:seqBinary)
+            System.out.println(s);
+        System.out.println("English sequence:");
+        for(String s:seqEnglish)
+            System.out.println(s);
     }
+  }
+```
 
 程序输出：
 
@@ -70,14 +72,15 @@ Collator类支持很有限的几个定序规则，要想指定其他自定义规
 
 RuleBasedCollator是Collator的子类，支持以字符串的形式传入自定义规则。下面的代码就定义了三种不同的自定义定序规则，具体内容一目了然，不在赘述。
 
-    String rule1 = ("< a < b < c");
-    String rule2 = ("< c < b  < a");
-    String rule3 = ("< c < a  < b");
+```java
+String rule1 = ("< a < b < c");
+String rule2 = ("< c < b  < a");
+String rule3 = ("< c < a  < b");
 
-    RuleBasedCollator rb1 = new RuleBasedCollator(rule1);
-    RuleBasedCollator rb2 = new RuleBasedCollator(rule2);
-    RuleBasedCollator rb3 = new RuleBasedCollator(rule3);
-
+RuleBasedCollator rb1 = new RuleBasedCollator(rule1);
+RuleBasedCollator rb2 = new RuleBasedCollator(rule2);
+RuleBasedCollator rb3 = new RuleBasedCollator(rule3);
+```
 
 ##java.text.CollationKey
 当字符串的比较次数较多时，直接使用Collator效率比较低。提高效率的方法之一就是使用CollationKey类，这比直接使用Collator.compare()要快上不少。
@@ -95,25 +98,27 @@ GDK使用名为OraCollator的类代替java.text.Collator，其中实现的所有
 
 下面是一段示例代码：
 
-    import java.text.Collator;
-    import oracle.i18n.text.*;
-    import java.util.*;
+```java
+import java.text.Collator;
+import oracle.i18n.text.*;
+import java.util.*;
 
-    public class test
-    {
-      public static void main(String[] args) throws Exception
-      {
-          Collator javaCollator = Collator.getInstance(Locale.FRENCH);
-          javaCollator.setStrength(Collator.TERTIARY);
-          if( javaCollator.compare("abc", "ABC") < 0 )
-              System.out.println("Using java collator, abc is less than ABC");
-          
-          OraCollator gdkCollator = OraCollator.getInstance("FRENCH");
-          gdkCollator.setStrength(OraCollator.TERTIARY);;
-          if( gdkCollator.compare("abc", "ABC") > 0 )
-              System.out.println("Using GDK Collator, abc is greater than to ABC");
-      }
-    }
+public class test
+{
+  public static void main(String[] args) throws Exception
+  {
+      Collator javaCollator = Collator.getInstance(Locale.FRENCH);
+      javaCollator.setStrength(Collator.TERTIARY);
+      if( javaCollator.compare("abc", "ABC") < 0 )
+          System.out.println("Using java collator, abc is less than ABC");
+      
+      OraCollator gdkCollator = OraCollator.getInstance("FRENCH");
+      gdkCollator.setStrength(OraCollator.TERTIARY);;
+      if( gdkCollator.compare("abc", "ABC") > 0 )
+          System.out.println("Using GDK Collator, abc is greater than to ABC");
+  }
+}
+```
 
 程序输出：
 

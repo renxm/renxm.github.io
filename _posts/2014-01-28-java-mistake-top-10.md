@@ -2,6 +2,7 @@
 layout:     post
 title:      Java程序员常犯的10个错误
 category: java
+discription: 本文总结了Java程序员常犯的10个错误。
 keywords:  java programming 
 ---
 本文总结了Java程序员常犯的10个错误。
@@ -9,28 +10,37 @@ keywords:  java programming
 #1. 把Array转化成ArrayList
 
 把Array转化成ArrayList，程序员经常用以下方法：
+
 ```java
 List<String> list = Arrays.asList(arr);
 Arrays.asList()
 ```
+
 实际上返回一个ArrayList，但是这个ArrayList是Arrays的一个内部私有类，而不是java.util.ArrayList类。这个私有类java.util.Arrays.ArrayList有set(), get(), contains()方法，但是不能够添加新的元素。它的大小是固定的。如果你想要一个java.util.ArrayList，正确的方法是:
+
 ```java
 ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
 ```
+
 java.util.ArrayList的构造函数可以接受一个集合类型。java.util.Arrays.ArrayList也继承了集合类型，所以可以作用参数使用。
 
 #2. 检查数组是否包含一个值
 
 开发人员经常做的是：
+
 ```java
 Set<String> set = new HashSet<String>(Arrays.asList(arr));
 return set.contains(targetValue);
 ```
+
 这个代码是工作的，但没有没有效率。把列表转换成set没有必要，需要额外的时间。正确的方法是：
+
 ```java
 Arrays.asList(arr).contains(targetValue);
 ```
+
 或者，一个简单的loop：
+
 ```java
 for(String s: arr){
 	if(s.equals(targetValue))
@@ -38,6 +48,7 @@ for(String s: arr){
 }
 return false;
 ```
+
 第一种比第二种更具有可读性。
 
 #3. 在循环中删除一个列表元素
@@ -58,6 +69,7 @@ System.out.println(list);
 这个方法有一个严重的问题。当元素被移除，该列表的大小缩减，元素索引也随之发生了变化。所以，如果你想通过使用索引来删除一个循环内的多个元素，就会导致错误的结果。
 
 你可能猜到可以使用iterator来删除循环中的元素。在Java中的foreach循环的工作原理就像一个iterator。 但是在这里也会发生错误。请看下面的代码：
+
 ```java
 ArrayList<String> list = new ArrayList<String>(Arrays.asList("a", "b", "c", "d"));
  
@@ -66,7 +78,9 @@ for (String s : list) {
 		list.remove(s);
 }
 ```
+
 上面的foreach loop代码会抛出一个异常ConcurrentModificationException. 但是下面这段代码不会。
+
 ```java
 ArrayList<String> list = new ArrayList<String>(Arrays.asList("a", "b", "c", "d"));
 Iterator<String> iter = list.iterator();
@@ -78,6 +92,7 @@ while (iter.hasNext()) {
 	}
 }
 ```
+
 通过分析ArrayList.iterator()的原代码，我们可以发现next()方法必须要在remove()方法前被调用。在foreach loop中，编译器产生的代码会先调用next()方法，从而产生异常ConcurrentModificationException。请查看ArrayList.iterator()的原代码。
 
 #4. Hashtable 与 HashMap
@@ -89,6 +104,7 @@ while (iter.hasNext()) {
 在Java中，原始类型和无界通配符类型很容易混在一起。以Set为例，Set是原始类型，而Set<?>是无界通配符类型。
 
 考虑下面的代码，它使用原始类型的List作为参数：
+
 ```java
 public static void add(List list, Object o){
 	list.add(o);
@@ -99,6 +115,7 @@ public static void main(String[] args){
 	String s = list.get(0);
 }
 ```
+
 此代码将抛出一个异常：
 >Exception in thread "main" java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
 	at ...
@@ -118,12 +135,14 @@ public static void main(String[] args){
 不可变对象有很多优点，如简单性，安全性等。但是它需要为每个不同的值创造一个单独的对象，对象太多可能会导致垃圾回收的成本高。所以可变和不可变之间进行选择时应该有一个平衡。
 
 一般情况下，使用可变对象，以避免产生过多的中间对象。一个经典的例子是串联了大量的字符串。如果使用的是不可变的字符串String，会产生很多可以垃圾回收的对象。这样既浪费时间也浪费CPU的运算能力，使用可变对象是正确的解决方案（如StringBuilder）。
+
 ```java
 String result="";
 for(String s: arr){
 	result = result + s;
 }
 ```
+
 另外一些情况，可变对象刚更加合适可取。例如排序(Collections.sort())。如果Collection是不可变的，排序方法每次将会返回一个新的Collection，这样会极其浪费资源。 可以看看[*为什么在Java中String被设计成不可变？*](http://www.programcreek.com/2013/04/why-string-is-immutable-in-java/)
 
 #9. 父类和子类的构造函数
@@ -174,7 +193,7 @@ String y = new String("abc");
 
 这两者有什么区别呢？ 下面的例子可以提供一个快速的答案
 
-```
+```java
 String a = "abcd";
 String b = "abcd";
 System.out.println(a == b);  // True

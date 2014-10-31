@@ -2,8 +2,10 @@
 layout:     post
 title:      session机制详解以及session的相关应用
 category: web 
+description: session是web开发里一个重要的概念，在大多数web应用里session都是被当做现成的东西，拿来就直接用，但是一些复杂的web应用里能拿来用的session已经满足不了实际的需求，当碰到这样的情况时候我们需要更加深入的理解session的机制，本文将梳理下session的相关知识，为设计可替代web容器自带的session机制打个基础。
 keywords:  session web http cookie
 ---
+
 session是web开发里一个重要的概念，在大多数web应用里session都是被当做现成的东西，拿来就直接用，但是一些复杂的web应用里能拿来用的session已经满足不了实际的需求，当碰到这样的情况时候我们需要更加深入的理解session的机制，本文将梳理下session的相关知识，为设计可替代web容器自带的session机制打个基础。
  
 #1.1 session的概念

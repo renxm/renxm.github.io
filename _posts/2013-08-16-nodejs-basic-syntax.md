@@ -12,6 +12,7 @@ Node.js 的基础是 JavaScript 这门 脚本语言。而大多数的脚本语�
 ###1.1. 变量声明
 
 在 C/C++ 中，我们这么声明变量的：
+
 ```c
 void foo() {}
 
@@ -20,8 +21,12 @@ char b = 'a';
 float c = 1.0f;
 void (*d)() = foo;  ///<
 ```
+
+
 忘了是不是这么写的了，总之是函数指针
 而在 Node.js 中则是这样的：
+
+
 ```javascript
 function foo() {}
 
@@ -30,28 +35,38 @@ var b = 'a';
 var c = 1.0;
 var d = foo;
 ```
+
+
 所以，无论是什么类型的变量，在 Node.js 中都是以一个 var 来解决的。
 ###1.2. 循环语句
 
 ####1.2.1. for…i
 
 这个循环语句基本上跟 C/C++ 一样，都是
+
 ```c
 for(int i = 0; i < foo; i++)
 {
     //...
 }
 ```
+
+
 而鉴于 Node.js 是弱类型，所以只需要：
+
 ```javascript
 for(var i = 0; i < foo; i++) {
     //...
 }
 ```
+
+
 ####1.2.2. for…in
 
 这是一种后有型的循环语句，类似于 PHP 的 foreach。
 比如我们有一个 JSON对象 如下：
+
+
 ```javascript
 var foo = {
     "hello"     : "world",
@@ -59,12 +74,18 @@ var foo = {
     "blahblah"  : "bar"
 };
 ```
+
+
 这个时候我们就可以用 for...in 来循环遍历了：
+
+
 ```javascript
 for(var key in foo) {
     console.log(key + ": " + foo[key]);
 }
 ```
+
+
 我们如果在命令行中打入下面的命令：
 > $ node foo.js
 
@@ -85,12 +106,16 @@ for(var key in foo) {
 ####1.3.1. +, -, *, /
 
 这几个运算符也就这样，要注意的是 +。它既可以作用于字符串，也可以作用于数值运算。弱类型语言虽然说类型是弱的，数字有时候可以以字符串的形态出现，字符串有时候可以用数值的形态出现，但是在必要的时候也还是要说一下它是什么类型的，我们可以用下面的代码去看看结果：
+
+
 ```javascript
 var a = "1";
 var b = 2;
 console.log(a + b);
 console.log(parseInt(a) + b);
 ```
+
+
 这里的 parseInt 是 Node.js 的一个内置函数，作用是将一个字符串解析成 int 类型的变量。
 上面的代码执行结果是
 > 12
@@ -100,21 +125,31 @@ console.log(parseInt(a) + b);
 ####1.3.1.2. ==, ===, !=, !==
 
 这里有一点要解释，当这个逻辑运算符长度为 2 的时候（==, !=），只是判断外在的值是不是一样的，而不会判断类型。如
+
+
 ```javascript
 var a = 1, b = "1";
 console.log(a == b);
 ```
+
+
 它输出的结果就是 true。但是如果我们在中间判断的时候再加上一个等号，那么就是严格判断了，需要类型和值都一样的时候才会是 true，否则就是 false。也就是说
+
+
 ```javascript
 var a = 1, b = "1";
 console.log(a === b);
 ```
+
+
 的时候，返回的结果就是 false 了，因为 a 是 int 型的，而 b 则是字符串。
 顺带着就把条件语句讲了吧，其实这里的 if 跟别的语言没什么两样，就是几个逻辑运算符两个等号三个等号的问题。所以就不多做累述了。
 ####1.3.1.3. typeof
 
 这里我姑且把它当成是一个运算符而不是函数了。
 这个运算符的作用是判断一个变量的类型，会返回一个字符串，即类型名，具体的执行下面的代码就知道了：
+
+
 ```javascript
 function foo() {}
 
@@ -136,6 +171,8 @@ console.log(typeof f);
 console.log(typeof g);
 console.log(typeof h);
 ```
+
+
 这里的执行结果就将会是：
 >number
 string
@@ -161,6 +198,8 @@ null 是一种特殊的 object，大致的意思就是空。比如说：
 ####1.4.2. undefined
 
 这个东西的意思就是说这个变量未声明。为了能够更好地区分 null，我们的样例代码如下写：
+
+
 ```javascript
 var a = {
     "foo"       : null
@@ -168,6 +207,8 @@ var a = {
 console.log(a["foo"]);
 console.log(a["bar"]);
 ```
+
+
 上面的代码中，我们让 a["foo"] 的值为空，即 null。而压根没有声明 a["bar"] 这个东西，它连空都不是。输出的结果大家都差不多应该猜到了：
 > null
 undefined
@@ -191,29 +232,43 @@ boolean
 array
 
 其中前三种类型可以直接赋值，而 array 的赋值只是一个引用赋值而已，在新变量中改变某个值的话旧变量的值也会改变，直接可以试试下面的代码：
+
+
 ```javascript
 var foo = [ 1, 2, 3 ];
 var bar = foo;
 bar[0] = 3;
 console.log(foo);
 ```
+
+
 它得出的结果是：
 > [ 3, 2, 3 ]
 
 也就是说 array 要是复制出一个新的数组的话，不能用直接赋值的方法，而必须“深拷贝”。
 这里有必要讲一下 array 的三种创建方法。
 第一种：
+
+
 ```javascript
 var dog = new Array();
 dog[0] = "嘘~";
 dog[1] = "蛋花汤";
 dog[2] = "在睡觉";
 ```
+
+
 第二种：
+
+
 ```javascript
 var dog = new Array( "嘘~", "蛋花汤", "在睡觉" );
 ```
+
+
 第三种：
+
+
 ```javascript
 var dog = [
     "嘘~",
@@ -221,6 +276,8 @@ var dog = [
     "在睡觉"
 ];
 ```
+
+
 我个人比较喜欢第三种写法，比较简洁。
 ###2.2. JSON对象
 
@@ -228,6 +285,8 @@ var dog = [
 本人对于 JSON对象 和 JavaScript 对象的区分放在 是否只用来存储数据，而并非是一个类的实例化。其实 JSON 的本质便是 JavaScript Object Notation。
 更多有关 JSON 的信息请自行百科。
 在 Node.js 中声明一个 JSON对象 非常简单：
+
+
 ```javascript
 var dog = {
     "pre"       : "嘘~",
@@ -240,11 +299,17 @@ var dog = {
     "suf"       : [ "我说了", "它在睡觉", "就是在睡觉" ]
 };
 ```
+
+
 有两种方式能得到 JSON对象 中的某个键名的键值，第一种是用点连接，第二种是用中括号：
+
+
 ```javascript
 dog.pre;
 dog["pre"];
 ```
+
+
 试试看：现在你自己动手试试看，用 for...in 的形式遍历一遍上面的 JSON对象。别忘了用上 typeof 喵~
 ###2.3. 类（对象）的基础
 
@@ -254,30 +319,44 @@ dog["pre"];
 ####2.3.1. 类的声明和实例化
 
 声明一个类非常简单，大家不要笑：
+
+
 ```javascript
 function foo() {
     //...
 }
 ```
+
+
 好了，我们已经写好了一个 foo 类了。
 真的假的？！真的。
 不信？不信你可以接下去打一段代码看看：
+
+
 ```javascript
 var bar = new foo();
 ```
+
+
 别看它是一个函数，如果以这样的形式（new）写出来，它就是这个类的实例化。
 而这个所谓的 foo() 其实就是这个 foo() 类的构造函数。
 ####2.3.2. 成员变量
 
 成员变量有好两种方法。
 第一种就是在类的构造函数或者任何构造函数中使用 this.<变量名> 。你可以在任何时候声明一个成员变量，在外部不影响使用，反正就算在还未声明的时候使用它，也会有一个 undefined 来撑着。所以说这就是第一种方法：
+
+
 ```javascript
 function foo() {
     this.hello = "world";
 }
 ```
+
+
 注意：只有在加了 this 的时候才是调用类的成员变量，否则只是函数内的一个局部变量而已。要分清楚有没有 this 的时候变量的作用范围。
 第二种方法就是在构造函数或者任何成员函数外部声明，其格式是 <类名>.prototype.<变量名>：
+
+
 ```javascript
 function foo() {
     //...
@@ -285,22 +364,34 @@ function foo() {
 
 foo.prototype.hello = "world";
 ```
+
+
 无聊上面哪种方法都是对成员变量的声明，我们可以看看效果：
+
+
 ```javascript
 var bar = new foo();
 console.log(bar.hello);
+```
+
 甚至你可以这么修改这个类：
+
+```javascript
 function foo() {
     this.hello = "world";
 }
 
 foo.prototype.hello = "蛋花汤";
 ```
+
+
 然后再用上面的代码输出。
 想想看为什么输出的还是 world 而不是 蛋花汤。
 ####2.3.2. 构造函数
 
 我们之前说过了这个 foo() 实际上是一个 构造函数。那么显然我们可以给构造函数传参数，所以就有了下面的代码：
+
+
 ```javascript
 // 代码2.1
 function foo(hello) {
@@ -311,18 +402,28 @@ function foo(hello) {
     }
 }
 ```
+
+
 我们看到上面有一个奇葩的判断 if(hello === undefined)，这个判断有什么用呢？第一种可能，就是开发者很蛋疼地特意传进去一个 undefined 进去，这个时候它是 undefined 无可厚非。
 还有一种情况。我们一开始就说了 JavaScript 是一门弱类型语言，其实不仅仅是弱类型，它的传参数也非常不严谨。你可以多传或者少传（只要保证你多传或者少传的时候可以保证程序不出错，或者逻辑不出错），原则上都是可以的。多传的参数会被自动忽略，而少传的参数会以 undefined 补足。
 看看下面的代码就明白了：
+
+
 ```javascript
 // 上接代码2.1
 var bar1 = new foo();
 var bar2 = new foo("蛋花汤");
 ```
+
+
 请自行输出一下两个 bar 的 hello 变量，会发现一个是 world 一个是 蛋花汤。显而易见，我们的第一个 bar1 在声明的时候，被 Node.js 自动看成了：
+
+
 ```javascript
 var bar1 = new foo(undefined);
 ```
+
+
 所以就有了它是 world 一说。
 还有就是在这个构造函数中，我们看到了传进去的参数是 hello 而这个类中本来就有个成员变量就是 this.hello。不过我们之前说过了有 this 和没 this 的时候作用域不同，那个参数只是作用于构造函数中，而加了 this 的那个则是成员变量。用一个 this 就马上区分开来他们了，所以即使同名也没关系。
 ####2.3.3. 成员函数
@@ -330,6 +431,8 @@ var bar1 = new foo(undefined);
 #####2.3.3.1. 成员函数声明
 
 成员函数的声明跟成员变量的第二种声明方法差不多，即 <类名>.prototype.<函数名> = <函数>;
+
+
 ```javascript
 // 上接代码2.1
 function setHello(hello) {
@@ -339,25 +442,37 @@ foo.prototype.setHello = setHello;
 
 bar1.setHello("鸡蛋饼");
 ```
+
+
 上面这段代码显而易见，我们实现了 foo 类的 setHello 函数，能通过它修改 foo.hello 的值。
 但是这么写是不是有点麻烦？接下去我要讲一个 JavaScript 函数重要的特性了。
 #####2.3.3.2. ★ 匿名函数
 
 很多时候我们的某些函数只在一个地方被引用或者调用，那么我们为这个函数起一个名字就太不值了，没必要，所以我们可以临时写好这个函数，直接让引用它的人引用它，调用它的人调用它。所以函数可以省略函数名，如：
+
+
 ```javascript
 function(hello) {
     this.hello = hello;
 }
 ```
+
+
 至于怎么引用或者调用呢？如果是上面的那个类需要引用的话，就是写成这样的：
+
+
 ```javascript
 foo.prototype.setHello = function(hello) {
     this.hello = hello;
 }
 ```
+
+
 这样的写法跟 2.3.3.1. 成员函数声明 是一个效果的，而且省了很多的代码量。而且实际上，基本上的类成员函数的声明都是采用这种匿名函数的方式来声明的。
 至于说怎么样让匿名函数被调用呢？这通常用于传入一个只被某个函数调用的函数时这样写。
 比如我们有一个函数的原型是：
+
+
 ```javascript
 /**
  * 我们将传入a，b两个变量，
@@ -368,7 +483,11 @@ function sumab(a, b, func) {
     var c = a + b;
     func(a, b, c);
 }
+```
+
 比如我们有两个版本的输出函数，一个是中文输出，一个是英文输出，那么如果不用匿名函数时候是这么写的：
+
+```javascript
 function zh(a, b, sum) {
     console.log(a + " + " + b + " 的值是：" + sum);
 }
@@ -380,11 +499,14 @@ function en(a, b, sum) {
 sumab(1, 2, zh);
 sumab(3, 4, en);
 ```
+
 执行一遍这段代码，输出的结果将会是：
 >  1 + 2 的值是：3
 >  3 plus 4 is 7
 
 这样的代码如果采用匿名函数的形式则将会是：
+
+
 ```javascript
 sumab(1, 2, function(a, b, sum) {
     console.log(a + " + " + b + " 的值是：" + sum);
@@ -393,20 +515,30 @@ sumab(3, 4, function(a, b, sum) {
     console.log(a + " plus " + b + " is " + sum);
 });
 ```
+
+
 这种形式通常使用于回调函数。回调机制算是 Node.js 或者说 JavaScript 的精髓。在以后的篇章会做介绍。
 #####2.3.3.3. 成员函数声明的匿名函数声明方式
 
 虽然上一节讲过了，不过还是再讲一遍吧。
 通常我们声明类的成员函数时候都是用匿名函数来声明的，因为反正那个函数也就是这个类的一个成员函数而已，不会在其它地方被单独引用或者调用，所以就有了下面的代码：
+
+
+```javascript
 // 上接代码2.1
 foo.prototype.setHello = function(hello) {
     this.hello = hello;
 }
+```
+
+
 这样我们就使得 foo 类有了 setHello 这个函数了。
 ####2.3.4. 类的随意性
 
 这个又是我胡扯的。所谓类的随意性即 JavaScript 中你可以在任何地方修改你的类，这跟 Ruby 有着一定的相似之处。
 比如说 string ，它其实也是一个类，有着诸如 length 这样的成员变量，也有 indexOf、substr 等成员函数。但是万一我们觉得这个 string 有些地方不完善，想加自己的方法，那么可以在你想要的地方给它增加一个函数，比如：
+
+
 ```javascript
 String.prototype.sb = function() {
     var newstr = "";
@@ -418,12 +550,18 @@ String.prototype.sb = function() {
     return newstr;
 };
 ```
+
+
 这个函数的意思就是填充一个字符串，使其变成 sb 的化身。
 我们来测试一下：
+
+
 ```javascript
 var str = "嘘~蛋花汤在睡觉。";
 console.log(str.sb());
 ```
+
+
 你将会得到这样的结果：
 > sbsbsbsbs
 
@@ -434,6 +572,7 @@ console.log(str.sb());
 
 所谓深拷贝就是自己新建一个数组或者对象，把源数组或者对象中的基础类型变量值一个个手动拷过去，而不是只把源数组或者对象的引用拿过来。所以这就涉及到了一个递归的调用什么的。
 下面是我实现的一个深拷贝函数，大家可以写一个自己的然后加入到自己的 Node.js 知识库中。
+
 ```javascript
 function cloneObject(src) {
     var dest = {};
@@ -445,6 +584,7 @@ function cloneObject(src) {
     return dest;
 }
 ```
+
 ###3.2. 系统默认对象参考手册
 
 >字符串：http://www.w3school.com.cn/js/jsref_obj_string.asp

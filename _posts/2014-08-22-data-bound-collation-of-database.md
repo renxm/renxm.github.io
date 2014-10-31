@@ -18,7 +18,9 @@ Collation，中文对应词为“定序”或“定序规则”，意指字符�
 传统的关系型数据库都有对定序规则的支持，以满足国际化的需求。大型数据库由于客户众多，对国际化的支持很完善，相对应地定序规则也很多。
 比如，Oracle 12c中的定序规则多达115种。在sqlPlus中可以使用如下语句查询全部的定序规则，其中后缀“_M”表示支持在主语言中夹杂多国语言的情况，如“SPANISH_M”。
 
-    SELECT VALUE FROM V$NLS_VALID_VALUES WHERE PARAMETER='SORT'
+```sql
+SELECT VALUE FROM V$NLS_VALID_VALUES WHERE PARAMETER='SORT'
+```
 
 定序规则在数据库中具体实现时，通常会把一个字符串按照一定算法映射为一个唯一的数值，这个数值被称为定序键（Collation Key）。对于两个字符串，可以逐字节比较它们定序键的二进制值，结果就是定序键所对应的字符串在特定定序规则中的比较结果。
 
@@ -34,34 +36,39 @@ Oracle数据库目前在SQL语句中对定序的支持主要基于一个函数�
 NLSSORT接受两个参数，一个是想要转化的字符变量（char），另一个是代表定序规则的字符串（nlsparam）。这两个参数可以是Oracle字符类型（CHAR/VARCHAR2/NCHAR/NVARCHAR2）中的任意一个。它的返回值是RAW类型，代表第一个参数的定序键。
 代表定序规则的参数有如下格式要求，其中COLLATION是某个特定语言定序规则的名字，如ENGLISH。BINARY是字符编码定序规则的名字。如果省略第二个参数，NLSSORT函数就会使用当前SESSION默认的定序规则，对应的SESSION参数是NLS_SORT。
 
-    'NLS_SORT = collation'
+```sql
+'NLS_SORT = collation'
+```
 
 在指定定序规则名字时，可以附加两个后缀：“_ai”代表对口音不敏感；“_ci”代表对大小写不敏感。但是，在ORDER BY语句中使用NLSSORT函数时，不建议使用这两个后缀，因为它们会使排序结果不确定。
 
 下面是一个简单的例子，对比了在查询中使用和不使用NLSSORT函数带来的差别：
 
-    CREATE TABLE test (name VARCHAR2(15));
-    INSERT INTO test VALUES ('Gaardiner');
-    INSERT INTO test VALUES ('Gaberd');
-    INSERT INTO test VALUES ('Gaasten');
+```sql
+CREATE TABLE test (name VARCHAR2(15));
+INSERT INTO test VALUES ('Gaardiner');
+INSERT INTO test VALUES ('Gaberd');
+INSERT INTO test VALUES ('Gaasten');
 
-    SELECT *
-      FROM test
-      ORDER BY name;
+SELECT *
+  FROM test
+  ORDER BY name;
 
-    NAME
-    ---------------
-    Gaardiner
-    Gaasten
-    Gaberd
+NAME
+---------------
+Gaardiner
+Gaasten
+Gaberd
 
-    SELECT *
-      FROM test
-      ORDER BY NLSSORT(name, 'NLS_SORT = XDanish');
+SELECT *
+  FROM test
+  ORDER BY NLSSORT(name, 'NLS_SORT = XDanish');
 
-    NAME
-    ---------------
-    Gaberd
-    Gaardiner
-    Gaasten
+NAME
+---------------
+Gaberd
+Gaardiner
+Gaasten
+```
+
 
