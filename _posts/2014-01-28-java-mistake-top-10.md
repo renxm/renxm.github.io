@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      本文总结了Java程序员常犯的10个错误
-category: programming
+title:      Java程序员常犯的10个错误
+category: java
 keywords:  java programming 
 ---
 本文总结了Java程序员常犯的10个错误。
@@ -43,6 +43,7 @@ return false;
 #3. 在循环中删除一个列表元素
 
 考虑下面的代码，迭代过程中删除元素：
+
 ```java
 ArrayList<String> list = new ArrayList<String>(Arrays.asList("a", "b", "c", "d"));
 for (int i = 0; i < list.size(); i++) {
@@ -50,8 +51,9 @@ for (int i = 0; i < list.size(); i++) {
 }
 System.out.println(list);
 ```
+
 这段代码的输出是：
->[b, d]
+> [b, d]
 
 这个方法有一个严重的问题。当元素被移除，该列表的大小缩减，元素索引也随之发生了变化。所以，如果你想通过使用索引来删除一个循环内的多个元素，就会导致错误的结果。
 
@@ -147,25 +149,32 @@ public class Sub extends Super {
 
 以上这段代码出现编译错误，因为默认的父类构造函数未定义。在Java中，如果一个类没有定义构造函数，编译器会默认插入一个默认的无参数构造函数。如果程序员定义构造函数，编译器将不插入默认的无参数构造函数。上面的代码由于自定义了有参数的构造函数，编译器不再插入无参数的构造函数。子类的构造函数，无论是有参数或无参数，都将调用父类无参构造函数。当子类需要父类的无参数构造函数的时候，就发生了错误。
 
-解决这个问题，可以1）增加一个父类构造函数
+解决这个问题，可以
+1）增加一个父类构造函数
+
 ```java
 public Super(){
     System.out.println("Super");
 }
 ```
-，或2）删除自定义的父类构造函数，或3）添加super(value)到子类构造函数。更多请查看父类和子类的构造函数。
 
-#10. "" 与 Constructor?
+2）删除自定义的父类构造函数
+3）添加super(value)到子类构造函数。
+
+#10.与 Constructor?
 
 字符串可以通过两种方式创建：
+
 ```java
 //1. use double quotes
 String x = "abc";
 //2. use constructor
 String y = new String("abc");
 ```
-这两者有什么区别呢？ 下面的例子可以提供一个快速的答案：
-```java
+
+这两者有什么区别呢？ 下面的例子可以提供一个快速的答案
+
+```
 String a = "abcd";
 String b = "abcd";
 System.out.println(a == b);  // True
@@ -176,6 +185,7 @@ String d = new String("abcd");
 System.out.println(c == d);  // False
 System.out.println(c.equals(d)); // True
 ```
+
 关于它们是如何分配内存的更多信息，请查看[*创建Java字符串使用“”或构造函数？*](http://www.programcreek.com/2014/03/create-java-string-by-double-quotes-vs-by-constructor/)
 
 小结

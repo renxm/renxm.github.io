@@ -5,7 +5,7 @@ category:  Efficiency
 description: 这里介绍了sublime OSX版本的常用快捷键，来源是 sublime unofficial document 网站上的一篇文章。修改了一些错误，去除了一些和OSX Yosemete冲突的快捷键。
 keywords:  sublime OSX Efficiency shortcut 
 ---
-这里介绍了sublime 3 OSX版本的常用快捷键，来源是 sublime unofficial document 网站上的一篇文章。修改了一些错误，去除了一些和 OSX Yosemite 冲突的快捷键。 欢迎补充！
+这里介绍了sublime 3 OSX版本的常用快捷键，来源是 [sublime unofficial document 网站][1]上的一篇文章。修改了一些错误，去除了一些和 OSX Yosemite 冲突的快捷键。 欢迎补充！
 
 #编辑
 
@@ -78,3 +78,6 @@ keywords:  sublime OSX Efficiency shortcut
 |⌃ + ⇧ + [NUM]	|把当前文件移动到相应拆分窗口。
 
 [Source Link](http://renxm.com)
+
+
+  [1]: https://sublime-text-unofficial-documentation.readthedocs.org/

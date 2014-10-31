@@ -1,3 +1,4 @@
+pygments:true
 markdown: rdiscount
 highlighter: pygments
 paginate: 8

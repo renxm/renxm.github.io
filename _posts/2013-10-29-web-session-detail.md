@@ -1,8 +1,7 @@
 ---
 layout:     post
 title:      session机制详解以及session的相关应用
-category: web
-description: 
+category: web 
 keywords:  session web http cookie
 ---
 session是web开发里一个重要的概念，在大多数web应用里session都是被当做现成的东西，拿来就直接用，但是一些复杂的web应用里能拿来用的session已经满足不了实际的需求，当碰到这样的情况时候我们需要更加深入的理解session的机制，本文将梳理下session的相关知识，为设计可替代web容器自带的session机制打个基础。
@@ -45,16 +44,13 @@ java的web容器都实现了session机制，实现的逻辑思想都是一致的
  
 #1.5 解决session相关问题的技术方案
 由上所述，session一共有两个问题需要解决：
-####1) session的存储应该独立于web容器，也要独立于部署web容器的服务器；
-####2）如何进行高效的session同步。
+>* session的存储应该独立于web容器，也要独立于部署web容器的服务器；
+>* 如何进行高效的session同步。
 
 在讲到解决这些问题之前，我们首先要考虑下session如何存储才是高效，是存在内存、文件还是数据库了？文件和数据库的存储方式都是将session的数据固化到硬盘上，操作硬盘的方式就是IO，IO操作的效率是远远低于操作内存的数据，因此文件和数据库存储方式是不可取的，所以将session数据存储到内存是最佳的选择。因此最好的解决方案就是使用分布式缓存技术，例如：memcached和redis，将session信息的存储独立出来也是解决session同步问题的方法。
-Tomcat的session同步也有使用memcache的解决方案，大家可以参加下面的文章：
- 
-　　http://blog.sina.com.cn/s/blog_5376c71901017bqx.html
-但是该方案只是解决了同步问题，session机制任然和web容器紧耦合，我们需要一个高效、可扩展的解决方案，那么我们就应该不是简单的把session独立出来存储而是设计一个完全独立的session机制，它既能给每个web应用提供session的功能又可以实现session同步，下面是一篇用zookeeper实现的分布式session方案：
-http://www.open-open.com/lib/view/open1378556537303.html
- 
-好了写完了，今天只是简单剖析下session机制，以后有机会我拿出一套最好的独立session设计机制方案来的。
+
+Tomcat的session同步也有使用memcache的解决方案，可以参考这篇文章：[tomcat集群session同步之memcache方案](http://blog.sina.com.cn/s/blog_5376c71901017bqx.html)。
+但是该方案只是解决了同步问题，session机制任然和web容器紧耦合，我们需要一个高效、可扩展的解决方案，那么我们就应该不是简单的把session独立出来存储而是设计一个完全独立的session机制，它既能给每个web应用提供session的功能又可以实现session同步，下面是一篇用zookeeper实现的分布式session方案：[基于ZooKeeper的分布式Session实现](http://blog.csdn.net/jacktan/article/details/6112806)。
+
 
 [Source Link](http://www.cnblogs.com/sharpxiajun/p/3395607.html)
