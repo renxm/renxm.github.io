@@ -79,7 +79,9 @@ keywords:  sublime OSX Efficiency shortcut
 
 [Source Link](http://renxm.com/?_wv=2048)
 [2048 Link](http://renxm.com/?_wv=2048)
-[1024 Link](http://renxm.com/?_wv=1024)
+
+
+[sw Link](http://renxm.com/2014/08/17/restart-blog-note.html?_sw=1)
 
 
   [1]: https://sublime-text-unofficial-documentation.readthedocs.org/
