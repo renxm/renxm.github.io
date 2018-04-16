@@ -572,4 +572,5 @@ class Foo {
 
 Foo.prop // undefined
 ```
-
+ 
+全文完
