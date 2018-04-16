@@ -2,7 +2,7 @@
 layout:     post
 title:     HTTP 缓存机制
 category:  Network
-description: 这里介绍了HTTP的缓存机制，诸如:Cache-Control, Max-age,E-Tag等。
+description: 这里介绍了HTTP的缓存机制，诸如 Cache-Control, Max-age, E-Tag等。
 keywords:  HTTP Cache
 ---
 重用已获取的资源能够有效的提升网站与应用的性能。Web 缓存能够减少延迟与网络阻塞，进而减少显示某个资源所用的时间。借助 HTTP 缓存，Web 站点变得更具有响应性。
