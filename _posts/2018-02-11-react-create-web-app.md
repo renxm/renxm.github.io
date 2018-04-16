@@ -122,7 +122,10 @@ yarn 的安装过程在官网上可以找到，此处略过不提。
 ```cmd
 npm config set proxy http://yourproxy_url/
 ```
-
+如果有速度更快的内部npm源，可以这样设置：
+```cmd
+npm config set registry http://faster-npm-source-url
+```
 ## 初始化 react 项目
 ```cmd
 yarn create react-app myappname
