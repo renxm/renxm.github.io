@@ -117,6 +117,12 @@ const apiBaseUrl = process.env.NODE_ENV === 'development' ? 'localhost:3001' : '
 # 用 yarn 替代 npm
 yarn 的安装过程在官网上可以找到，此处略过不提。
 
+## 网络代理
+如果开发环境处于某公司或机构的内部局域网，需要设置代理：
+```cmd
+npm config set proxy http://yourproxy_url/
+```
+
 ## 初始化 react 项目
 ```cmd
 yarn create react-app myappname
