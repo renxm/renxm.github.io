@@ -16,7 +16,7 @@ safe:  false
 title: 休明的个人网站
 description: 休明的个人网站
 keywords: 任 休明
-url: http://renxm.com
+url: http://renxm.github.io
 #url: http://localhost:4000
 feed: /atom.xml
 favicon: /images/favicon.png
@@ -42,7 +42,7 @@ author:
     simpleIntro: 我是「任休明」，这是我的网络ID，此处是这个虚拟人格的归宿。
     detailIntro:
       <p>此前的博客断断续续写了两三年，许久不更新后域名也过期了。</p>
-      <p>此番赎回renxm.com这个永久域名，立志是要在网络上留下点痕迹的了。</p>
+      <p>此番赎回renxm.github.io这个永久域名，立志是要在网络上留下点痕迹的了。</p>
 
 #Follow me
 follow:

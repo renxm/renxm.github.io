@@ -77,11 +77,11 @@ keywords:  sublime OSX Efficiency shortcut
 |⌃ + [NUM]	    |在拆分窗口中移动焦点。
 |⌃ + ⇧ + [NUM]	|把当前文件移动到相应拆分窗口。
 
-[Source Link](http://renxm.com/?_wv=2048)
-[2048 Link](http://renxm.com/?_wv=2048)
+[Source Link](http://renxm.github.io/?_wv=2048)
+[2048 Link](http://renxm.github.io/?_wv=2048)
 
 
-[sw Link](http://renxm.com/2014/08/17/restart-blog-note.html?_sw=1)
+[sw Link](http://renxm.github.io/2014/08/17/restart-blog-note.html?_sw=1)
 
 
   [1]: https://sublime-text-unofficial-documentation.readthedocs.org/
